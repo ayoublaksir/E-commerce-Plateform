@@ -1,0 +1,61 @@
+{% extends 'vendor/vendor_admin.html' %}
+{% block name %}{{vendor.username}}{% endblock %}
+{% block content %}
+   <div class="container-fluid" style="background:#f6f7f9">
+  <div class="white-box">
+  
+  <table class="table">
+  <thead>
+    
+    <tr>
+      <th scope="col">Client username</th>
+      <th scope="col">Product title</th>
+      <th scope="col">Product image</th>
+      <th scope="col">Quantity</th>
+      <th scope="col">Date</th>
+    </tr>
+  </thead>
+  
+  <tbody>
+    {% for order in orders %}
+    <tr>
+      <td style="vertical-align: middle;">{{order.clientusername}}</td>
+      
+      <td style="vertical-align: middle;">{{order.productid.title}}</td>
+      
+      <td style="vertical-align: middle;"> {% if order.productid.image %}<img src="{{order.productid.image.url}}" alt="" style="height: 60px; width: 60px;  object-fit: cover;"> {% endif %}</td>
+      
+      <td style="vertical-align: middle;">{{order.quantity}}</td>
+      <td style="vertical-align: middle;"> {{order.date_added}}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<!--PAGINATION================-->
+
+{% if products.has_other_pages %} 
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                      {% if products.has_previous %}
+                      <li class="page-item"><a class="page-link  text-dark" href="?page={{ products.previous_page_number }}">Previous</a></li>
+                      
+                      {% endif %}
+                      {% for i in products.paginator.page_range %}
+                      {% if products.number == i %}
+                      <li ><span class="page-link  text-white" style="background-color:#ff6a00;border-color:#ff6a00" >{{ i }} <span class="sr-only">(current)</span></span></li>
+                      {% else %}
+                      <li class="page-item"> <a href="?page={{ i }}" class="page-link  text-dark">{{i}}</a></li>
+                      {% endif %}
+                      {% endfor %}
+                      {% if products.has_next %}
+                      <li class="page-item"><a class="page-link  text-dark" href="?page={{ products.next_page_number }}">Next</a></li>
+                      
+                      {% endif %}
+                    </ul>
+                  </nav>
+                {% endif %}
+
+</div>
+</div>
+{% endblock content %}

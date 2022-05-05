@@ -1,0 +1,71 @@
+{% extends 'administrator/administrator.html' %}
+
+{% block content %}
+   <div class="container-fluid">
+                <!-- ============================================================== -->
+                <!-- Start Page Content -->
+                <!-- ============================================================== -->
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="white-box">
+                            <h3 class="box-title">Vendors products</h3>
+                            <div class="table-responsive">
+                                <table class="table text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th class="border-top-0">Username</th>
+                                            <th class="border-top-0">Category</th>
+                                            <th class="border-top-0">Product</th>
+                                            <th class="border-top-0">Price</th>
+                                            <th class="border-top-0"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for product in products %}
+                                        <tr>
+                                            <td>{{product.vendor.username}}</td>
+                                            <td>{{product.category.title}}</td>
+                                            <td><a href="{%  url 'detail' product.category.slug product.slug %}">{{product.title}}</a></td>
+                                            <td>{{product.price}}$</td>
+                                            <td>
+                                                <form action="" method="POST">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="product_id" value="{{product.id}}" >
+                                                <input type="submit" name="accept" class='btn btn-success mx-1 text-white' value="Accept"> <input type="submit" name="refuse" class='btn btn-danger mx-1 text-white' value="Refuse">
+                                                
+                                                </form>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% if products.has_other_pages %} 
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                      {% if products.has_previous %}
+                      <li class="page-item"><a class="page-link  text-dark" href="?page={{ products.previous_page_number }}">Previous</a></li>
+                      
+                      {% endif %}
+                      {% for i in products.paginator.page_range %}
+                      {% if products.number == i %}
+                      <li ><span class="page-link  text-white" style="background-color:#ff6a00;border-color:#ff6a00" >{{ i }} <span class="sr-only">(current)</span></span></li>
+                      {% else %}
+                      <li class="page-item"> <a href="?page={{ i }}" class="page-link  text-dark">{{i}}</a></li>
+                      {% endif %}
+                      {% endfor %}
+                      {% if products.has_next %}
+                      <li class="page-item"><a class="page-link  text-dark" href="?page={{ products.next_page_number }}">Next</a></li>
+                      
+                      {% endif %}
+                    </ul>
+                  </nav>
+                {% endif %}
+
+                 
+               
+{% endblock content %}

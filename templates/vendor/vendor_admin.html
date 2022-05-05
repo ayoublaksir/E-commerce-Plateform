@@ -1,0 +1,816 @@
+{% load static %}
+<!-- <h1>{{vendor.name}}</h1>
+{% if products %}
+{% for product in products %}
+<h1>{{product.title}}</h1>
+<h2>{{product.price}}$</h2>
+{%endfor%}
+{% else %}
+<h1>you dont have any product</h1>
+
+{% endif %}
+<a href="{% url 'logout' %}">logout</a>
+<a href="{% url 'add_product' %}">add product</a>
+
+{{vendor.name}}
+{{vendor.phone_number}}
+{{vendor.location}}
+{{vendor.country}} -->
+
+
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords"
+        content="wrappixel, admin dashboard, html css dashboard, web dashboard, bootstrap 5 admin, bootstrap 5, css3 dashboard, bootstrap 5 dashboard, Ample lite admin bootstrap 5 dashboard, frontend, responsive bootstrap 5 admin template, Ample admin lite dashboard bootstrap 5 dashboard template">
+    <meta name="description"
+        content="Ample Admin Lite is powerful and clean admin dashboard template, inpired from Bootstrap Framework">
+    <meta name="robots" content="noindex,nofollow">
+    <title>Admin</title>
+    <link rel="canonical" href="https://www.wrappixel.com/templates/ample-admin-lite/" />
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="plugins/images/favicon.png">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'plugins/bower_components/chartist/dist/chartist.min.css'%}" >
+    <link rel="stylesheet" href="{% static 'plugins/bower_components/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.css' %}">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href=" {% static 'styles/css/style.min.css' %} " >
+    <style>
+       #vendor-countries::-webkit-scrollbar {
+          display: none;
+        }
+        #client-countries::-webkit-scrollbar {
+          display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- ============================================================== -->
+    <!-- Preloader - style you can find in spinners.css -->
+    <!-- ============================================================== -->
+    <div class="preloader">
+        <div class="lds-ripple">
+            <div class="lds-pos"></div>
+            <div class="lds-pos"></div>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- Main wrapper - style you can find in pages.scss -->
+    <!-- ============================================================== -->
+    <div id="main-wrapper" data-layout="vertical" data-navbarbg="skin5" data-sidebartype="full"
+        data-sidebar-position="absolute" data-header-position="absolute" data-boxed-layout="full">
+        <!-- ============================================================== -->
+        <!-- Topbar header - style you can find in pages.scss -->
+        <!-- ============================================================== -->
+        <header class="topbar" data-navbarbg="skin5">
+            <nav class="navbar top-navbar navbar-expand-md "  style="background-color:#ff6a00;">
+                <div class="navbar-header" data-logobg="skin6">
+                    <!-- ============================================================== -->
+                    <!-- Logo -->
+                    <!-- ============================================================== -->
+                    <a class="navbar-brand" href="dashboard.html">
+                        <!-- Logo icon -->
+                        <b class="logo-icon">
+                            <!-- Dark Logo icon -->
+                            <!--<img src="plugins/images/logo-icon.png" alt="homepage" />-->
+                        </b>
+                        <!--End Logo icon -->
+                        <!-- Logo text -->
+                        <span class="logo-text">
+                            <!-- dark Logo text -->
+                            <!--<img src="plugins/images/logo-text.png" alt="homepage" /> -->
+                        </span>
+                    </a>
+                    <!-- ============================================================== -->
+                    <!-- End Logo -->
+                    <!-- ============================================================== -->
+                    <!-- ============================================================== -->
+                    <!-- toggle and nav items -->
+                    <!-- ============================================================== -->
+                    <a class="nav-toggler waves-effect waves-light text-dark d-block d-md-none"
+                        href="javascript:void(0)"><i class="ti-menu ti-close"></i></a>
+                </div>
+                <!-- ============================================================== -->
+                <!-- End Logo -->
+                <!-- ============================================================== -->
+                <div class="navbar-collapse collapse" id="navbarSupportedContent" data-navbarbg="skin5">
+                   
+                    <!-- ============================================================== -->
+                    <!-- Right side toggle and nav items -->
+                    <!-- ============================================================== -->
+                    <ul class="navbar-nav ms-auto d-flex align-items-center">
+
+                        <!-- ============================================================== -->
+                        <!-- Search -->
+                        <!-- ============================================================== -->
+                      
+                        <!-- ============================================================== -->
+                        <!-- User profile and search -->
+                        <!-- ============================================================== -->
+                       
+                        <!-- ============================================================== -->
+                        <!-- User profile and search -->
+                        <!-- ============================================================== -->
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <!-- ============================================================== -->
+        <!-- End Topbar header -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        <aside class="left-sidebar" data-sidebarbg="skin6">
+            <!-- Sidebar scroll-->
+            <div class="scroll-sidebar">
+                <!-- Sidebar navigation-->
+                <nav class="sidebar-nav">
+                    <ul id="sidebarnav">
+                        <!-- User Profile-->
+                        <li class="sidebar-item pt-2">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href=" {% url 'vendor_admin' %} "
+                                aria-expanded="false">
+                                <i class="far fa-chart-bar"></i>
+                                <span class="hide-menu">Dashboard</span>
+                            </a>
+                        </li>
+                     
+                       
+
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href=" {% url 'add_product' %} "
+                                aria-expanded="false">
+                                <i class="fas fa-plus"></i>
+                                <span class="hide-menu">Add a product</span>
+                            </a>
+                        </li>
+                         <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href=" {% url 'products_state' %} "
+                                aria-expanded="false">
+                                <i class="far fa-check-circle"></i>
+                                <span class="hide-menu">Products state</span>
+                            </a>
+                        </li>
+                          <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href=" {% url 'products' %} "
+                                aria-expanded="false">
+                                <i class="fas fa-cubes"></i>
+                                <span class="hide-menu">My products</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                          <a class="sidebar-link waves-effect waves-dark sidebar-link" href=" {% url 'Clients' %} "
+                              aria-expanded="false">
+                              <i class="fas fa-users"></i>
+                              <span class="hide-menu">My Clients</span>
+                          </a>
+                      </li>
+                       
+                        <li class="text-center p-20 upgrade-btn"  >
+                            <a href=" {% url 'logout' %}"class="btn d-grid  text-white" style="background-color:#ff6a00;border-color:#ff6a00" >Logout</a>
+                        </li> 
+                    </ul>
+
+                </nav>
+                <!-- End Sidebar navigation -->
+            </div>
+            <!-- End Sidebar scroll-->
+        </aside>
+        <!-- ============================================================== -->
+        <!-- End Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Page wrapper  -->
+        <!-- ============================================================== -->
+        <div class="page-wrapper">
+            <!-- ============================================================== -->
+            <!-- Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+            <div class="page-breadcrumb bg-white">
+                <div class="row align-items-center">
+                    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                        <h4 class="page-title">Welcome {% block name %} {{vendor.username}} {% endblock %} </h4>
+                    </div>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- Container fluid  -->
+            <!-- ============================================================== -->
+            {% block content%}
+            <div class="container-fluid" style="background:#f6f7f9">
+                <!-- ============================================================== -->
+                <!-- Three charts -->
+                <!-- ============================================================== -->
+                <!--General insights-->
+                <h4 class=' p-2 ' style="background:#fff; border: 1px solid #e3e3e3; border-radius:6px">General insights</h4>
+                <div class="row justify-content-center">
+                    <div class="col-lg-4 col-md-12" >
+                        <div class="white-box analytics-info" style=" border: 1px solid #e3e3e3;border-radius:6px">
+                            <h3 class="box-title">Total earnings</h3>
+                            <ul class="list-inline two-part d-flex align-items-center mb-0">
+                                <li>
+                                    <div id="sparklinedash"><canvas width="67" height="30"
+                                            style="display: inline-block; width: 67px; height: 30px; vertical-align: top;"></canvas>
+                                    </div>
+                                </li>
+                                <li class="ms-auto"><span class="counter text-success"><h2>{{total_earning}}</h2></span></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-12">
+                        <div class="white-box analytics-info" style=" border: 1px solid #e3e3e3;border-radius:6px">
+                            <h3 class="box-title">Number of clients</h3>
+                            <ul class="list-inline two-part d-flex align-items-center mb-0">
+                                <li>
+                                    <div id="sparklinedash3"><canvas width="67" height="30"
+                                            style="display: inline-block; width: 67px; height: 30px; vertical-align: top;"></canvas>
+                                    </div>
+                                </li>
+                                <li class="ms-auto"><span class="counter text-info"><h2>{{client_number}}</h2></span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-12" >
+                        <div class="white-box analytics-info" style=" border: 1px solid #e3e3e3;border-radius:6px">
+                            <h3 class="box-title">Total orders</h3>
+                            <ul class="list-inline two-part d-flex align-items-center mb-0">
+                                <li>
+                                    <div id="sparklinedash4"><canvas width="67" height="30"
+                                            style="display: inline-block; width: 67px; height: 30px; vertical-align: top;"></canvas>
+                                    </div>
+                                </li>
+                                <li class="ms-auto"><span class="counter text-danger"><h2>{{total_orders}}</h2></span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- ============================================================== -->
+                <!-- PRODUCTS YEARLY SALES -->
+                <!-- ============================================================== -->
+                <!--============== AREA/BAR CHART=====================-->
+                <h4 class=' p-2 ' style="background:#fff; border: 1px solid #e3e3e3;border-radius:6px">Eearnings data</h4>
+                <div class="row justify-content-center">
+                   <div class="col-lg-6 col-md-12">
+                        <div class="white-box analytics-info" style=" border: 1px solid #e3e3e3;border-radius:6px" >
+                            <h3>Earnings History</h3>
+                            <div id="area-chart"></div>
+                            
+                        </div>
+                    </div>
+                    <!--Bar chart-->
+                    <div class="col-lg-6 col-md-12">
+                        <div class="white-box analytics-info" style=" border: 1px solid #e3e3e3;border-radius:6px">
+                            <h3>Weekly earnings</h3>
+                            <div id="bar-chart"></div>
+                            
+                        </div>
+                    </div>
+                </div>
+             
+                <!--Client data =============================-->
+                <h4 class=' p-2 ' style="background:#fff; border: 1px solid #e3e3e3;border-radius:6px">Client data</h4>
+                <div class="row justify-content-center">
+                    <div class="col-lg-4 col-md-12" >
+                        <div class="white-box analytics-info" style=" border: 1px solid #e3e3e3;border-radius:6px" >
+                            <h3>Client gender distribution</h3>
+                            <div id="chart-donut-client"></div>
+                            
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-12" >
+                        <div class="white-box analytics-info" id="client-countries" style="overflow-x:scroll; border: 1px solid #e3e3e3;border-radius:6px " >
+                            <h3>Clients location density</h3>
+                            <div id="regions_div_client"></div>
+                            
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-12">
+                        <div class="white-box analytics-info " style=" border: 1px solid #e3e3e3;border-radius:6px" >
+                            <h3>Top 5 buyers countries</h3>
+                            <div id="top-buyers" ></div>
+                            
+                        </div>
+                    </div>
+                </div>
+
+                <input id="client-countries-string" type="hidden" value="{{ client_countries_string}}">
+                <input id="client-country-data" type="hidden" value="{{ client_country_data }}">
+                <input id="buyer_country" type="hidden" value="{{ buyer_country}}">
+                <input id="buyer_orders" type="hidden" value="{{ buyer_orders }}">
+              
+                
+                
+               
+
+                <!-- ============================================================== -->
+                <!-- RECENT SALES -->
+                <!-- ============================================================== -->
+                
+                <!-- ============================================================== -->
+                <!-- Recent Comments -->
+                <!-- ============================================================== -->
+                
+                   
+            <!-- ============================================================== -->
+            <!-- End Container fluid  -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- footer -->
+            <!-- ============================================================== -->
+            
+            <!-- ============================================================== -->
+            <!-- End footer -->
+            <!-- ============================================================== -->
+        </div>
+         {% endblock %}
+        <footer class="footer text-center"> 2021 © Ecommerce </footer>
+        <!-- ============================================================== -->
+        <!-- End Page wrapper  -->
+        <!-- ============================================================== -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Wrapper -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- All Jquery -->
+    <!-- ============================================================== -->
+    <script src="{%static 'plugins/bower_components/jquery/dist/jquery.min.js' %}"></script>
+    <!-- Bootstrap tether Core JavaScript -->
+    <script src="bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{% static 'scripts/js/app-style-switcher.js' %}"></script>
+    <script src="{% static 'plugins/bower_components/jquery-sparkline/jquery.sparkline.min.js'%}"></script>
+    <!--Wave Effects -->
+    <script src="{% static 'scripts/js/waves.js' %}"></script>
+    <!--Menu sidebar -->
+    <script src="{% static 'scripts/js/sidebarmenu.js' %}"></script>
+    <!--Custom JavaScript -->
+    <script src="{% static 'scripts/js/custom.js' %}"></script>
+    <!--This page JavaScript -->
+    <!--chartis chart-->
+    <script src="{% static 'plugins/bower_components/chartist/dist/chartist.min.js' %}"></script>
+    <script src="{% static 'plugins/bower_components/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js' %}"></script>
+    <script src="{% static 'scripts/js/pages/dashboards/dashboard1.js' %}"></script>
+    <!--Client donut chart-->
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script>
+      males='{{males}}'
+      females='{{females}}'
+      var options = {
+          series: [males,females],
+          labels: ['Men','Women'],
+          chart: {
+          type: 'donut',
+          
+        },
+        responsive: [{
+          breakpoint: 480,
+          options: {
+            chart: {
+              width: 200
+            },
+            legend: {
+              position: 'bottom'
+            }
+          }
+        }],
+      
+        colors:['#0d6efd', '#E91E63'],
+
+        };
+
+        var chart = new ApexCharts(document.querySelector("#chart-donut-client"), options);
+        chart.render();
+    </script>
+
+    <!--Google geo charts -->
+    
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+    //CLIENT
+      google.charts.load('current', {
+        'packages':['geochart'],
+        // Note: you will need to get a mapsApiKey for your project.
+        // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
+        'mapsApiKey': 'AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY'
+      });
+      google.charts.setOnLoadCallback(drawRegionsMap_client);
+
+      clientCountries= document.getElementById('client-countries-string').value.split("%").filter(function (el) {return el != "";})
+      clientDataNum=document.getElementById('client-country-data').value.split("%").filter(function (el) {return el != "";}).map(e=>+e)
+
+      clientdata=[['Country', 'Number of clients']]
+
+      for(let i=0;i<clientCountries.length;i++){
+        clientdata=clientdata.concat([[clientCountries[i],clientDataNum[i]]])
+      }
+
+      function drawRegionsMap_client() {
+        var data1 = google.visualization.arrayToDataTable(clientdata);
+
+        var options = {
+            colorAxis: {colors: ['#0d6efd']},
+        };
+
+        var chart = new google.visualization.GeoChart(document.getElementById('regions_div_client'));
+
+        chart.draw(data1, options);
+      }
+      
+      
+    </script>
+    <!--Top 5 buyers coutries-->
+    <script>
+      buyer_country= document.getElementById('buyer_country').value.split("%").filter(function (el) {return el != "";})
+      buyer_orders=document.getElementById('buyer_orders').value.split("%").filter(function (el) {return el != "";}).map(e=>+e)
+      console.log(buyer_country)
+      console.log(buyer_orders)
+
+      clientdata=[['Country', 'Number of clients']]
+      
+
+      for(let i=0;i<clientCountries.length;i++){
+        clientdata=clientdata.concat([[clientCountries[i],clientDataNum[i]]])
+      }
+
+    var options = {
+          series: [{
+          data: buyer_orders
+        }],
+          chart: {
+          type: 'bar',
+          height: 203
+        },
+        plotOptions: {
+          bar: {
+            borderRadius: 0,
+            horizontal: true,
+          }
+        },
+        dataLabels: {
+          enabled: false
+        },
+        xaxis: {
+          categories: buyer_country
+        }
+        
+        };
+
+        var chart = new ApexCharts(document.querySelector("#top-buyers"), options);
+        chart.render();</script>
+
+        
+   
+        <!-- weekly Area chart -->
+        <script>
+          
+      
+        var options = {
+          series: [{
+          data: [
+            [1327359600000,30.95],
+            [1327446000000,31.34],
+            [1327532400000,31.18],
+            [1327618800000,31.05],
+            [1327878000000,31.00],
+            [1327964400000,30.95],
+            [1328050800000,31.24],
+            [1328137200000,31.29],
+            [1328223600000,31.85],
+            [1328482800000,31.86],
+            [1328569200000,32.28],
+            [1328655600000,32.10],
+            [1328742000000,32.65],
+            [1328828400000,32.21],
+            [1329087600000,32.35],
+            [1329174000000,32.44],
+            [1329260400000,32.46],
+            [1329346800000,32.86],
+            [1329433200000,32.75],
+            [1329778800000,32.54],
+            [1329865200000,32.33],
+            [1329951600000,32.97],
+            [1330038000000,33.41],
+            [1330297200000,33.27],
+            [1330383600000,33.27],
+            [1330470000000,32.89],
+            [1330556400000,33.10],
+            [1330642800000,33.73],
+            [1330902000000,33.22],
+            [1330988400000,31.99],
+            [1331074800000,32.41],
+            [1331161200000,33.05],
+            [1331247600000,33.64],
+            [1331506800000,33.56],
+            [1331593200000,34.22],
+            [1331679600000,33.77],
+            [1331766000000,34.17],
+            [1331852400000,33.82],
+            [1332111600000,34.51],
+            [1332198000000,33.16],
+            [1332284400000,33.56],
+            [1332370800000,33.71],
+            [1332457200000,33.81],
+            [1332712800000,34.40],
+            [1332799200000,34.63],
+            [1332885600000,34.46],
+            [1332972000000,34.48],
+            [1333058400000,34.31],
+            [1333317600000,34.70],
+            [1333404000000,34.31],
+            [1333490400000,33.46],
+            [1333576800000,33.59],
+            [1333922400000,33.22],
+            [1334008800000,32.61],
+            [1334095200000,33.01],
+            [1334181600000,33.55],
+            [1334268000000,33.18],
+            [1334527200000,32.84],
+            [1334613600000,33.84],
+            [1334700000000,33.39],
+            [1334786400000,32.91],
+            [1334872800000,33.06],
+            [1335132000000,32.62],
+            [1335218400000,32.40],
+            [1335304800000,33.13],
+            [1335391200000,33.26],
+            [1335477600000,33.58],
+            [1335736800000,33.55],
+            [1335823200000,33.77],
+            [1335909600000,33.76],
+            [1335996000000,33.32],
+            [1336082400000,32.61],
+            [1336341600000,32.52],
+            [1336428000000,32.67],
+            [1336514400000,32.52],
+            [1336600800000,31.92],
+            [1336687200000,32.20],
+            [1336946400000,32.23],
+            [1337032800000,32.33],
+            [1337119200000,32.36],
+            [1337205600000,32.01],
+            [1337292000000,31.31],
+            [1337551200000,32.01],
+            [1337637600000,32.01],
+            [1337724000000,32.18],
+            [1337810400000,31.54],
+            [1337896800000,31.60],
+            [1338242400000,32.05],
+            [1338328800000,31.29],
+            [1338415200000,31.05],
+            [1338501600000,29.82],
+            [1338760800000,30.31],
+            [1338847200000,30.70],
+            [1338933600000,31.69],
+            [1339020000000,31.32],
+            [1339106400000,31.65],
+            [1339365600000,31.13],
+            [1339452000000,31.77],
+            [1339538400000,31.79],
+            [1339624800000,31.67],
+            [1339711200000,32.39],
+            [1339970400000,32.63],
+            [1340056800000,32.89],
+            [1340143200000,31.99],
+            [1340229600000,31.23],
+            [1340316000000,31.57],
+            [1340575200000,30.84],
+            [1340661600000,31.07],
+            [1340748000000,31.41],
+            [1340834400000,31.17],
+            [1340920800000,32.37],
+            [1341180000000,32.19],
+            [1341266400000,32.51],
+            [1341439200000,32.53],
+            [1341525600000,31.37],
+            [1341784800000,30.43],
+            [1341871200000,30.44],
+            [1341957600000,30.20],
+            [1342044000000,30.14],
+            [1342130400000,30.65],
+            [1342389600000,30.40],
+            [1342476000000,30.65],
+            [1342562400000,31.43],
+            [1342648800000,31.89],
+            [1342735200000,31.38],
+            [1342994400000,30.64],
+            [1343080800000,30.02],
+            [1343167200000,30.33],
+            [1343253600000,30.95],
+            [1343340000000,31.89],
+            [1343599200000,31.01],
+            [1343685600000,30.88],
+            [1343772000000,30.69],
+            [1343858400000,30.58],
+            [1343944800000,32.02],
+            [1344204000000,32.14],
+            [1344290400000,32.37],
+            [1344376800000,32.51],
+          
+          ]
+        }],
+          chart: {
+          id: 'area-datetime',
+          type: 'area',
+          height: 350,
+          zoom: {
+            autoScaleYaxis: true
+          }
+        },
+        annotations: {
+          yaxis: [{
+            y: 30,
+            borderColor: '#999',
+            label: {
+              show: true,
+              //text: 'Support',
+              style: {
+                color: "#fff",
+                background: '#00E396'
+              }
+            }
+          }],
+          xaxis: [{
+            x: new Date('14 Nov 2012').getTime(),
+            borderColor: '#999',
+            yAxisIndex: 0,
+            label: {
+              show: true,
+              //text: 'Rally',
+              style: {
+                color: "#fff",
+                background: '#775DD0'
+              }
+            }
+          }]
+        },
+        dataLabels: {
+          enabled: false
+        },
+        markers: {
+          size: 0,
+          style: 'hollow',
+        },
+        xaxis: {
+          type: 'datetime',
+          min: new Date('01 Mar 2012').getTime(),
+          tickAmount: 6,
+        },
+        tooltip: {
+          x: {
+            format: 'dd MMM yyyy'
+          }
+        },
+        fill: {
+          
+          type: 'gradient',
+          gradient: {
+            shadeIntensity: 1,
+            opacityFrom: 0.7,
+            opacityTo: 0.9,
+            stops: [0, 100]
+          }
+        },
+        stroke: {
+         
+
+    show: true,
+    curve: 'smooth',
+    lineCap: 'butt',
+
+    width: 1,
+    dashArray: 0,      
+}
+        };
+
+        var chart = new ApexCharts(document.querySelector("#area-chart"), options);
+        chart.render();
+      
+      
+        var resetCssClasses = function(activeEl) {
+        var els = document.querySelectorAll('button')
+        Array.prototype.forEach.call(els, function(el) {
+          el.classList.remove('active')
+        })
+      
+        activeEl.target.classList.add('active')
+      }
+      
+      document
+        .querySelector('#one_month')
+        .addEventListener('click', function(e) {
+          resetCssClasses(e)
+      
+          chart.zoomX(
+            new Date('28 Jan 2013').getTime(),
+            new Date('27 Feb 2013').getTime()
+          )
+        })
+      
+      document
+        .querySelector('#six_months')
+        .addEventListener('click', function(e) {
+          resetCssClasses(e)
+      
+          chart.zoomX(
+            new Date('27 Sep 2012').getTime(),
+            new Date('27 Feb 2013').getTime()
+          )
+        })
+      
+      document
+        .querySelector('#one_year')
+        .addEventListener('click', function(e) {
+          resetCssClasses(e)
+          chart.zoomX(
+            new Date('27 Feb 2012').getTime(),
+            new Date('27 Feb 2013').getTime()
+          )
+        })
+      
+      document.querySelector('#ytd').addEventListener('click', function(e) {
+        resetCssClasses(e)
+      
+        chart.zoomX(
+          new Date('01 Jan 2013').getTime(),
+          new Date('27 Feb 2013').getTime()
+        )
+      })
+      
+      document.querySelector('#all').addEventListener('click', function(e) {
+        resetCssClasses(e)
+      
+        chart.zoomX(
+          new Date('23 Jan 2012').getTime(),
+          new Date('27 Feb 2013').getTime()
+        )
+      })
+</script>
+<!--Bar charts of earnings-->
+<script>
+ var options = {
+          series: [{
+          name: 'Net Profit',
+          data: [44, 55, 57, 56, 61, 58, 63]
+        }],
+          chart: {
+          type: 'bar',
+          height: 350
+        },
+        plotOptions: {
+          bar: {
+            horizontal: false,
+            columnWidth: '55%',
+            endingShape: 'rounded'
+          },
+        },
+        dataLabels: {
+          enabled: false
+        },
+        stroke: {
+          show: true,
+          width: 2,
+          colors: ['transparent']
+        },
+        xaxis: {
+          categories: ['Mon', 'Tue', 'Wed', 'Thu', 'Fry', 'Sat', 'Sun'],
+        },
+        yaxis: {
+          title: {
+            text: '$ (thousands)'
+          }
+        },
+        fill: {
+          colors:['#4056d4'],
+          opacity: 0.8
+        },
+        tooltip: {
+          y: {
+            formatter: function (val) {
+              return "$ " + val + " thousands"
+            }
+          }
+        }
+        };
+
+        var chart = new ApexCharts(document.querySelector("#bar-chart"), options);
+        chart.render();
+      
+      
+    
+</script>
+</body>
+
+</html>

@@ -1,0 +1,26 @@
+
+
+{% extends 'vendor/vendor_admin.html' %}
+{% block name %}{{vendor.username}}{% endblock %}
+{% block content %}
+   <div class="container-fluid  " style="background:#f6f7f9">
+   <div class="white-box d-flex flex-column justify-content-center align-items-center">
+    <h4 class="text"> <span class="text">Are you sure you want to delete this product ?</span> </h4>
+    <form action="" method="POST" class="d-flex flex-column justify-content-center align-items-center">
+        {% csrf_token %}
+        
+            {% if item.image %}
+            <img src={{item.image.url}} alt="" style="width: 200px; height: 200px; object-fit: cover;">
+           <h3> {{item.title}} </h3>
+            <h4 style="margin-bottom:15px;">{{item.price}}$</h4>
+            {% endif %}
+
+        
+      <div>
+      <button class="btn btn-danger text-white mx-1 my-1">Delete</button>
+      <a href="{% url 'products' %}" class="btn text-white  mx-1 my-1" style="background-color: #ff6a00;">Cancel</a>
+      </div>
+    </form>
+   </div>
+   </div>
+{% endblock %}
